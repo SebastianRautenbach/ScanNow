@@ -148,14 +148,14 @@ void loadHashesIntoMemory() {
             
             if (hash256_text && file_name_text && mime_type_text && signature_text) {
                 
-                hash_def temp;
-                
-                temp.sha256_hash = reinterpret_cast<const char*>(hash256_text);
-                temp.file_name = reinterpret_cast<const char*>(file_name_text);
-                temp.mime_type = reinterpret_cast<const char*>(mime_type_text);
-                temp.signature = reinterpret_cast<const char*>(signature_text);
-                
-                temp_hashes[temp.sha256_hash] = temp;
+               //hash_def temp;
+               //
+               //temp.sha256_hash = reinterpret_cast<const char*>(hash256_text);
+               //temp.file_name = reinterpret_cast<const char*>(file_name_text);
+               //temp.mime_type = reinterpret_cast<const char*>(mime_type_text);
+               //temp.signature = reinterpret_cast<const char*>(signature_text);
+               //
+               //temp_hashes[temp.sha256_hash] = temp;
             }                            
         }
     }

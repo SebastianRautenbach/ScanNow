@@ -1,12 +1,88 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DB81F551-8D3D-409C-A017-6A6C98E49293}|ScanNow\\ScanNow.vcxproj|C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\src\\scanners\\SignatureScanner.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DB81F551-8D3D-409C-A017-6A6C98E49293}|ScanNow\\ScanNow.vcxproj|solutionrelative:ScanNow\\src\\scanners\\SignatureScanner.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB81F551-8D3D-409C-A017-6A6C98E49293}|ScanNow\\ScanNow.vcxproj|C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\include\\scanners\\SignatureScanner.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DB81F551-8D3D-409C-A017-6A6C98E49293}|ScanNow\\ScanNow.vcxproj|solutionrelative:ScanNow\\include\\scanners\\SignatureScanner.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB81F551-8D3D-409C-A017-6A6C98E49293}|ScanNow\\ScanNow.vcxproj|C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\include\\Persistance\\FileHashMem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DB81F551-8D3D-409C-A017-6A6C98E49293}|ScanNow\\ScanNow.vcxproj|solutionrelative:ScanNow\\include\\Persistance\\FileHashMem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB81F551-8D3D-409C-A017-6A6C98E49293}|ScanNow\\ScanNow.vcxproj|C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DB81F551-8D3D-409C-A017-6A6C98E49293}|ScanNow\\ScanNow.vcxproj|solutionrelative:ScanNow\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FileHashMem.h",
+              "DocumentMoniker": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\include\\Persistance\\FileHashMem.h",
+              "RelativeDocumentMoniker": "ScanNow\\include\\Persistance\\FileHashMem.h",
+              "ToolTip": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\include\\Persistance\\FileHashMem.h",
+              "RelativeToolTip": "ScanNow\\include\\Persistance\\FileHashMem.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-28T23:54:37.441Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SignatureScanner.cpp",
+              "DocumentMoniker": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\src\\scanners\\SignatureScanner.cpp",
+              "RelativeDocumentMoniker": "ScanNow\\src\\scanners\\SignatureScanner.cpp",
+              "ToolTip": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\src\\scanners\\SignatureScanner.cpp",
+              "RelativeToolTip": "ScanNow\\src\\scanners\\SignatureScanner.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-28T23:53:23.676Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\src\\main.cpp",
+              "RelativeDocumentMoniker": "ScanNow\\src\\main.cpp",
+              "ToolTip": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\src\\main.cpp",
+              "RelativeToolTip": "ScanNow\\src\\main.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-28T23:36:20.949Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SignatureScanner.h",
+              "DocumentMoniker": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\include\\scanners\\SignatureScanner.h",
+              "RelativeDocumentMoniker": "ScanNow\\include\\scanners\\SignatureScanner.h",
+              "ToolTip": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\include\\scanners\\SignatureScanner.h",
+              "RelativeToolTip": "ScanNow\\include\\scanners\\SignatureScanner.h",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABkAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-28T23:29:18.94Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
