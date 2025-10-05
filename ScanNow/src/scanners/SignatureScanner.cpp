@@ -1,26 +1,27 @@
 #include "scanners/SignatureScanner.h"
-#include "Persistance/FileHashMem.h"
+#include "persistance/FileHashMem.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "picosha2.h"
+#include <string>
 
-bool lowlevel::SignatureScanner::scan(std::string& fileData, std::shared_ptr<FileHashMem> hashMem)
+bool lowlevel::SignatureScanner::scan(const std::string& fileData, const std::shared_ptr<FileHashMem> hashMem)
 {
-
-    auto generatedHash = generateFileHash(fileData);
-
+    static thread_local std::array<unsigned char, picosha2::k_digest_size> hashBuffer;
+    auto generatedHash = generateFileHash(fileData, hashBuffer);
     return compare(generatedHash, hashMem);
 }
 
-std::string lowlevel::SignatureScanner::generateFileHash(std::string& fileData)
-{
-    std::vector<unsigned char> hash(picosha2::k_digest_size);
-    picosha2::hash256(fileData.begin(), fileData.end(), hash.begin(), hash.end());
-    return picosha2::bytes_to_hex_string(hash.begin(), hash.end());
+inline std::string lowlevel::SignatureScanner::generateFileHash(const std::string& fileData, std::array<unsigned char, picosha2::k_digest_size>& hashBuffer)
+{    
+    picosha2::hash256(fileData.begin(), fileData.end(), hashBuffer.begin(), hashBuffer.end());
+    std::string result;
+    result.reserve(picosha2::k_digest_size * 2);
+    result = picosha2::bytes_to_hex_string(hashBuffer.begin(), hashBuffer.end());
+    return result;
 }
 
-bool lowlevel::SignatureScanner::compare(std::string& hash, std::shared_ptr<FileHashMem> hashMem)
+inline bool lowlevel::SignatureScanner::compare(const std::string& hash, const std::shared_ptr<FileHashMem> hashMem)
 {
-    return hashMem->temp_hashes.count(hash);    
+    return hashMem->getMaliciousHashes().count(hash);
 }

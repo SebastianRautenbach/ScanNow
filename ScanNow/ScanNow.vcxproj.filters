@@ -24,6 +24,15 @@
     <ClCompile Include="src\scanners\SignatureScanner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\persistance\FileHashMem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\controllers\DatabaseClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\systems\FileScanner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\picosha2.h">
@@ -38,13 +47,19 @@
     <ClInclude Include="include\systems\FileScanner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Persistance\FileHashMem.h">
+    <ClInclude Include="include\persistance\FileHashMem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\scanners\SignatureScanner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Data\QuarantineItem.h">
+    <ClInclude Include="include\models\QuarantineItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\controllers\DatabaseClient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

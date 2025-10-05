@@ -139,13 +139,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include\systems\FileScanner.cpp" />
+    <ClCompile Include="src\controllers\DatabaseClient.cpp" />
+    <ClCompile Include="src\persistance\FileHashMem.cpp" />
     <ClCompile Include="src\scanners\SignatureScanner.cpp" />
     <ClCompile Include="include\thirdparty\sqlite3.c" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Data\QuarantineItem.h" />
-    <ClInclude Include="include\Persistance\FileHashMem.h" />
+    <ClInclude Include="include\controllers\DatabaseClient.h" />
+    <ClInclude Include="include\models\QuarantineItem.h" />
+    <ClInclude Include="include\pch.h" />
+    <ClInclude Include="include\persistance\FileHashMem.h" />
     <ClInclude Include="include\picosha2.h" />
     <ClInclude Include="include\scanners\SignatureScanner.h" />
     <ClInclude Include="include\systems\FileScanner.h" />
