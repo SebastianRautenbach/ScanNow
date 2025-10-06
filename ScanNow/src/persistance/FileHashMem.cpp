@@ -16,7 +16,7 @@ void lowlevel::FileHashMem::loadHashesIntoMemory()
         while (sqlite3_step(stmt) == SQLITE_ROW) {
             const unsigned char* hash256_text = sqlite3_column_text(stmt, 1);
             if (hash256_text) {                
-                mal_hashes.insert(reinterpret_cast<const char*>(hash256_text));
+                mal_hashes[reinterpret_cast<const char*>(hash256_text)] = reinterpret_cast<const char*>(hash256_text);
             }
         }
     }
@@ -29,7 +29,7 @@ void lowlevel::FileHashMem::loadHashesIntoMemory()
         while (sqlite3_step(stmt) == SQLITE_ROW) {
             const unsigned char* hash256_text = sqlite3_column_text(stmt, 1);
             if (hash256_text) {
-                mal_hashes.insert(reinterpret_cast<const char*>(hash256_text));
+                ben_hashes[reinterpret_cast<const char*>(hash256_text)] = reinterpret_cast<const char*>(hash256_text);
             }
         }
     }

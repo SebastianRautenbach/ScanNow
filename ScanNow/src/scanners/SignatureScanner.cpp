@@ -7,8 +7,13 @@
 
 bool lowlevel::SignatureScanner::scan(const std::string& fileData, const std::shared_ptr<FileHashMem> hashMem)
 {
-    static thread_local std::array<unsigned char, picosha2::k_digest_size> hashBuffer;
-    auto generatedHash = generateFileHash(fileData, hashBuffer);
+    static thread_local std::array<unsigned char, picosha2::k_digest_size> hashBuffer;        
+    
+    std::string generatedHash = "";
+    generatedHash += ' ';
+    generatedHash += '\"';
+    generatedHash += generateFileHash(fileData, hashBuffer);
+    generatedHash += '\"';
     return compare(generatedHash, hashMem);
 }
 
@@ -22,6 +27,6 @@ inline std::string lowlevel::SignatureScanner::generateFileHash(const std::strin
 }
 
 inline bool lowlevel::SignatureScanner::compare(const std::string& hash, const std::shared_ptr<FileHashMem> hashMem)
-{
-    return hashMem->getMaliciousHashes().count(hash);
+{    
+    return !hashMem->getMaliciousHashes()[hash].empty();
 }

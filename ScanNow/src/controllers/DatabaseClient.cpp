@@ -74,7 +74,7 @@ int DatabaseClient::createDBFromCSV(const char* csv_path)
         std::string field;
         std::vector<std::string> columns;
 
-        while (std::getline(ss, field, ',')) {
+        while (std::getline(ss, field, ',')) {              
             columns.push_back(field);
         }
 

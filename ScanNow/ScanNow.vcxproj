@@ -145,6 +145,7 @@
     <ClCompile Include="src\scanners\SignatureScanner.cpp" />
     <ClCompile Include="include\thirdparty\sqlite3.c" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\systems\FileTraverser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\controllers\DatabaseClient.h" />
