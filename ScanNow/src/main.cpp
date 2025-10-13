@@ -11,6 +11,5 @@ int main() {
 	auto fs = std::make_shared<FileScanner>(fhm);
 
 
-	fs->scan("C:/Users/karat/Desktop/exclude/RenderEngine.exe");
-	fs->scan("C:/Users/karat/Desktop/exclude/eicar.com");
+	fs->scan("");
 }
