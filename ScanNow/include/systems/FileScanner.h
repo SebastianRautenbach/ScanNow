@@ -8,7 +8,7 @@ namespace lowlevel{
 		FileScanner(std::shared_ptr<FileHashMem> _fileHashMem);
 		void scan(const char* path);
 	private:
-		std::shared_ptr<SignatureScanner> signatureScanner;
-		std::shared_ptr<FileHashMem> fileHashMem;
+		std::shared_ptr<SignatureScanner> m_signatureScanner;
+		std::shared_ptr<FileHashMem> m_fileHashMem;
 	};
 }

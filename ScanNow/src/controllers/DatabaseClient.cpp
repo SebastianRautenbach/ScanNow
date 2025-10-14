@@ -12,7 +12,7 @@ DatabaseClient::DatabaseClient()
 
 int DatabaseClient::createDBFromCSV(const char* csv_path)
 {
-    if (openDB(db_name) == 0) return 1; 
+    if (openDB(m_dbName) == 0) return 1; 
 
     char* errMsg = nullptr;
 
@@ -34,10 +34,10 @@ int DatabaseClient::createDBFromCSV(const char* csv_path)
         "tlsh TEXT"
         ");";
 
-    if (sqlite3_exec(db, create_table_sql, nullptr, nullptr, &errMsg) != SQLITE_OK) {
+    if (sqlite3_exec(m_db, create_table_sql, nullptr, nullptr, &errMsg) != SQLITE_OK) {
         std::cerr << "Failed to create table: " << errMsg << std::endl;
         sqlite3_free(errMsg);
-        sqlite3_close(db);
+        sqlite3_close(m_db);
         return 1;
     }
 
@@ -47,9 +47,9 @@ int DatabaseClient::createDBFromCSV(const char* csv_path)
         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     sqlite3_stmt* stmt = nullptr;
-    if (sqlite3_prepare_v2(db, insert_sql, -1, &stmt, nullptr) != SQLITE_OK) {
-        std::cerr << "Failed to prepare statement: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
+    if (sqlite3_prepare_v2(m_db, insert_sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "Failed to prepare statement: " << sqlite3_errmsg(m_db) << std::endl;
+        sqlite3_close(m_db);
         return 1;
     }
 
@@ -57,14 +57,14 @@ int DatabaseClient::createDBFromCSV(const char* csv_path)
     if (!file.is_open()) {
         std::cerr << "Failed to open CSV file: " << csv_path << std::endl;
         sqlite3_finalize(stmt);
-        sqlite3_close(db);
+        sqlite3_close(m_db);
         return 1;
     }
 
     std::string line;
     bool skip_header = true;
 
-    sqlite3_exec(db, "BEGIN TRANSACTION;", nullptr, nullptr, nullptr);
+    sqlite3_exec(m_db, "BEGIN TRANSACTION;", nullptr, nullptr, nullptr);
 
     while (std::getline(file, line)) {
         if (skip_header) { skip_header = false; continue; }
@@ -88,14 +88,14 @@ int DatabaseClient::createDBFromCSV(const char* csv_path)
         }
 
         if (sqlite3_step(stmt) != SQLITE_DONE) {
-            std::cerr << "Insert failed: " << sqlite3_errmsg(db) << std::endl;
+            std::cerr << "Insert failed: " << sqlite3_errmsg(m_db) << std::endl;
         }
 
         sqlite3_reset(stmt);
         sqlite3_clear_bindings(stmt);
     }
 
-    sqlite3_exec(db, "COMMIT;", nullptr, nullptr, nullptr);
+    sqlite3_exec(m_db, "COMMIT;", nullptr, nullptr, nullptr);
     sqlite3_finalize(stmt);
     file.close();
 
@@ -103,10 +103,10 @@ int DatabaseClient::createDBFromCSV(const char* csv_path)
     return 0;
 }
 
-int DatabaseClient::openDB(const char* db_name)
+int DatabaseClient::openDB(const char* m_dbName)
 {
-    if (sqlite3_open(db_name, &db) != SQLITE_OK) {
-        std::cerr << "Failed to open database: " << sqlite3_errmsg(db) << std::endl;
+    if (sqlite3_open(m_dbName, &m_db) != SQLITE_OK) {
+        std::cerr << "Failed to open database: " << sqlite3_errmsg(m_db) << std::endl;
         return 1;
     }
     return 0;

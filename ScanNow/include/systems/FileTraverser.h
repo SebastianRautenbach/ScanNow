@@ -17,7 +17,7 @@ namespace lowlevel {
 		// worker threads
 
 
-		std::shared_ptr<FileScanner> fileScanner;
-		unsigned int num_thread = std::thread::hardware_concurrency(); // for now
+		std::shared_ptr<FileScanner> m_fileScanner;
+		unsigned int m_numThread = std::thread::hardware_concurrency(); // for now
 	};
 }

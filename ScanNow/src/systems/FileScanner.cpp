@@ -5,9 +5,9 @@
 #include <sstream>
 
 lowlevel::FileScanner::FileScanner(std::shared_ptr<FileHashMem> _fileHashMem)
-    :fileHashMem(_fileHashMem)
+    :m_fileHashMem(_fileHashMem)
 {
-	signatureScanner = std::make_shared<SignatureScanner>();
+	m_signatureScanner = std::make_shared<SignatureScanner>();
 }
 
 void lowlevel::FileScanner::scan(const char* path)
@@ -21,7 +21,7 @@ void lowlevel::FileScanner::scan(const char* path)
         original = buffer.str();       
     }
 	
-    if (signatureScanner->scan(original, fileHashMem)) {
+    if (m_signatureScanner->scan(original, m_fileHashMem)) {
         // bad file
     }
     else {

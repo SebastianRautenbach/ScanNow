@@ -9,11 +9,12 @@ ThreadPool::ThreadPool(uint32_t num_threads)
 			std::function<void()> task;
 			while (1) {
 				std::unique_lock<std::mutex>lock(m_mutex);
+				
 				m_conVar.wait(lock, [this] {
 					
 					return !m_tasks.isEmpty() || m_stop;
 						
-					});
+				});
 
 				if (m_stop) {
 					return;
