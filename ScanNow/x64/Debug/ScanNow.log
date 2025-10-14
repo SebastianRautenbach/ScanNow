@@ -1,9 +1,2 @@
-﻿  FileScanner.cpp
-  DatabaseClient.cpp
-  FileHashMem.cpp
-  SignatureScanner.cpp
-  main.cpp
-  FileTraverser.cpp
-  Generating Code...
-  sqlite3.c
-  ScanNow.vcxproj -> D:\ScanNow\x64\Debug\ScanNow.exe
+﻿  ThreadPool.cpp
+  ScanNow.vcxproj -> C:\Users\karat\Documents\GitHub\ScanNow\x64\Debug\ScanNow.exe

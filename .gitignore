@@ -1,3 +1,13 @@
 ScanNow/hashes.db
 ScanNow/resources/full.csv
 ScanNow/resources/full_sha256.txt
+ScanNow/x64
+ScanNow/obj
+ScanNow/bin
+
+*.ipch
+*.VC.db
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln

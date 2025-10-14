@@ -1,69 +1,105 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="include">
+      <UniqueIdentifier>{89AF369E-F58E-B539-FEA6-40106A051C9B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="include\controllers">
+      <UniqueIdentifier>{8F6B36CE-FBCC-13DC-843A-5A8EF09A4A9B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="include\models">
+      <UniqueIdentifier>{3C617B5D-282F-6F63-11C3-DF89FD2F4BC8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\persistance">
+      <UniqueIdentifier>{994345A6-05A5-22B4-8E12-6966FA725973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\scanners">
+      <UniqueIdentifier>{75134D91-610C-6CE3-8A3E-516876964BEF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\systems">
+      <UniqueIdentifier>{B01630F3-1CA2-9DB7-25B3-20AC91BDF9B7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\thirdparty">
+      <UniqueIdentifier>{E354BAE2-CF38-7B38-3899-758B249C65BA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\controllers">
+      <UniqueIdentifier>{33FD3AC4-9F88-A888-A899-2B7D14A40489}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\persistance">
+      <UniqueIdentifier>{3DD5499C-A960-B760-B271-3A551E7C1361}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scanners">
+      <UniqueIdentifier>{9967CE7C-85CA-5D21-2E50-96D71A9229A4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\systems">
+      <UniqueIdentifier>{547605C4-C02B-7EB9-4920-7890B5D474BD}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\thirdparty\sqlite3.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scanners\SignatureScanner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\persistance\FileHashMem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\controllers\DatabaseClient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\systems\FileScanner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\systems\FileTraverser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\picosha2.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\controllers\DatabaseClient.h">
+      <Filter>include\controllers</Filter>
     </ClInclude>
-    <ClInclude Include="include\systems\SystemScanner.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\systems\FileTraverser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\systems\FileScanner.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\persistance\FileHashMem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\scanners\SignatureScanner.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\controllers\ThreadPool.h">
+      <Filter>include\controllers</Filter>
     </ClInclude>
     <ClInclude Include="include\models\QuarantineItem.h">
-      <Filter>Header Files</Filter>
+      <Filter>include\models</Filter>
+    </ClInclude>
+    <ClInclude Include="include\models\ThreadSafeQueue.h">
+      <Filter>include\models</Filter>
     </ClInclude>
     <ClInclude Include="include\pch.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\controllers\DatabaseClient.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\persistance\FileHashMem.h">
+      <Filter>include\persistance</Filter>
     </ClInclude>
+    <ClInclude Include="include\picosha2.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\scanners\SignatureScanner.h">
+      <Filter>include\scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="include\systems\FileScanner.h">
+      <Filter>include\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="include\systems\FileTraverser.h">
+      <Filter>include\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="include\systems\SystemScanner.h">
+      <Filter>include\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="include\thirdparty\sqlite3.h">
+      <Filter>include\thirdparty</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="include\thirdparty\sqlite3.c">
+      <Filter>include\thirdparty</Filter>
+    </ClCompile>
+    <ClCompile Include="src\controllers\DatabaseClient.cpp">
+      <Filter>src\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\controllers\ThreadPool.cpp">
+      <Filter>src\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\persistance\FileHashMem.cpp">
+      <Filter>src\persistance</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scanners\SignatureScanner.cpp">
+      <Filter>src\scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="src\systems\FileScanner.cpp">
+      <Filter>src\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\systems\FileTraverser.cpp">
+      <Filter>src\systems</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

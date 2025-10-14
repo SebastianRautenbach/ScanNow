@@ -1,5 +1,10 @@
 #pragma once
 #include "FileScanner.h"
+#include <thread>
+#include <mutex>
+#include <queue>
+
+
 
 namespace lowlevel {
 	class FileTraverser {
@@ -8,6 +13,11 @@ namespace lowlevel {
 		void scan(const char* path);
 
 	private:
-		std::shared_ptr<FileScanner> fileScanner;	
+
+		// worker threads
+
+
+		std::shared_ptr<FileScanner> fileScanner;
+		unsigned int num_thread = std::thread::hardware_concurrency(); // for now
 	};
 }

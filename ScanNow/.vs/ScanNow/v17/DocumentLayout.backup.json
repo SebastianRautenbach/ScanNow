@@ -1,12 +1,88 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5EFBE8E6-CADA-6782-D3F2-F2583F51CEE3}|ScanNow.vcxproj|C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5EFBE8E6-CADA-6782-D3F2-F2583F51CEE3}|ScanNow.vcxproj|solutionrelative:src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5EFBE8E6-CADA-6782-D3F2-F2583F51CEE3}|ScanNow.vcxproj|C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\src\\systems\\FileScanner.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5EFBE8E6-CADA-6782-D3F2-F2583F51CEE3}|ScanNow.vcxproj|solutionrelative:src\\systems\\FileScanner.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5EFBE8E6-CADA-6782-D3F2-F2583F51CEE3}|ScanNow.vcxproj|C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\src\\systems\\FileTraverser.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5EFBE8E6-CADA-6782-D3F2-F2583F51CEE3}|ScanNow.vcxproj|solutionrelative:src\\systems\\FileTraverser.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5EFBE8E6-CADA-6782-D3F2-F2583F51CEE3}|ScanNow.vcxproj|C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\include\\systems\\FileScanner.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5EFBE8E6-CADA-6782-D3F2-F2583F51CEE3}|ScanNow.vcxproj|solutionrelative:include\\systems\\FileScanner.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FileScanner.cpp",
+              "DocumentMoniker": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\src\\systems\\FileScanner.cpp",
+              "RelativeDocumentMoniker": "src\\systems\\FileScanner.cpp",
+              "ToolTip": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\src\\systems\\FileScanner.cpp",
+              "RelativeToolTip": "src\\systems\\FileScanner.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-10-14T13:47:22.915Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FileTraverser.cpp",
+              "DocumentMoniker": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\src\\systems\\FileTraverser.cpp",
+              "RelativeDocumentMoniker": "src\\systems\\FileTraverser.cpp",
+              "ToolTip": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\src\\systems\\FileTraverser.cpp",
+              "RelativeToolTip": "src\\systems\\FileTraverser.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-10-14T13:47:22.111Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FileScanner.h",
+              "DocumentMoniker": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\include\\systems\\FileScanner.h",
+              "RelativeDocumentMoniker": "include\\systems\\FileScanner.h",
+              "ToolTip": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\include\\systems\\FileScanner.h",
+              "RelativeToolTip": "include\\systems\\FileScanner.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-10-14T13:46:25.476Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\src\\main.cpp",
+              "RelativeDocumentMoniker": "src\\main.cpp",
+              "ToolTip": "C:\\Users\\karat\\Documents\\GitHub\\ScanNow\\ScanNow\\src\\main.cpp",
+              "RelativeToolTip": "src\\main.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-10-14T13:40:16.518Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
