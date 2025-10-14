@@ -5,6 +5,7 @@ ScanNow/x64
 ScanNow/obj
 ScanNow/bin
 ScanNow\x64\
+ScanNow\.vs\
 
 *.ipch
 *.VC.db
