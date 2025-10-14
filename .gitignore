@@ -4,6 +4,7 @@ ScanNow/resources/full_sha256.txt
 ScanNow/x64
 ScanNow/obj
 ScanNow/bin
+ScanNow\x64\
 
 *.ipch
 *.VC.db
