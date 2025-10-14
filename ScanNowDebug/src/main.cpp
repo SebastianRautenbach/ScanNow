@@ -1,6 +1,14 @@
 #include <iostream>
+#include "scanner.h"
+
+
+void function_callback(std::string path) {
+	std::cout << path << "\n";
+}
+
 
 int main() {
-	std::cout << "HELLO WORLD!\n";
+	scannow::scan(function_callback);
+
 	return 0;
 }

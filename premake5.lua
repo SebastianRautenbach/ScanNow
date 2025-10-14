@@ -17,8 +17,8 @@ project "ScanNow"
 
     warnings "Extra"    
 
-
-    targetdir ("ScanNow/bin/" .. outputdir .. "/%{prj.name}")
+targetdir ("ScanNowDebug/lib")
+--    targetdir ("ScanNow/bin/" .. outputdir .. "/%{prj.name}")
 
     files
     {
@@ -80,7 +80,8 @@ project "ScanNowDebug"
 
     includedirs
     {
-        "ScanNowDebug/include"        
+        "ScanNowDebug/include",
+        "ScanNow/include/scanner"     
     }
 
     libdirs 
@@ -90,6 +91,7 @@ project "ScanNowDebug"
 
     links 
     {
+        "ScanNow.lib"
     }
 
     filter "system.windows"
