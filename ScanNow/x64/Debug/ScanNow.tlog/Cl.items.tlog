@@ -1,8 +1,0 @@
-C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\include\systems\FileScanner.cpp;C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\x64\Debug\FileScanner.obj
-C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\src\controllers\DatabaseClient.cpp;C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\x64\Debug\DatabaseClient.obj
-C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\src\controllers\ThreadPool.cpp;C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\x64\Debug\ThreadPool.obj
-C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\src\persistance\FileHashMem.cpp;C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\x64\Debug\FileHashMem.obj
-C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\src\scanners\SignatureScanner.cpp;C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\x64\Debug\SignatureScanner.obj
-C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\include\thirdparty\sqlite3.c;C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\x64\Debug\sqlite3.obj
-C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\src\main.cpp;C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\x64\Debug\main.obj
-C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\src\systems\FileTraverser.cpp;C:\Users\karat\Documents\GitHub\ScanNow\ScanNow\x64\Debug\FileTraverser.obj
