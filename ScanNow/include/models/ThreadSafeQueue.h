@@ -12,6 +12,12 @@ public:
 		m_conVar.notify_one();
 	}
 
+	void emplace(T const& val) {
+		std::lock_guard<std::mutex> lock(m_mutex);
+		m_queue.emplace(val);
+		m_conVar.notify_one();
+	}
+
 	T pop() {
 		std::unique_lock<std::mutex> uLock(m_mutex);
 		m_conVar.wait(uLock, [&] {return !m_queue.empty(); });

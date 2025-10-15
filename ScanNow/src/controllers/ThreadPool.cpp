@@ -33,4 +33,12 @@ ThreadPool::ThreadPool(uint32_t num_threads)
 
 ThreadPool::~ThreadPool()
 {
+	std::unique_lock<std::mutex> lock(m_mutex);
+	m_stop = true;
+	lock.unlock();
+	m_conVar.notify_all();
+	
+	for (auto& thread : m_threads) {
+		thread.join();
+	}
 }

@@ -5,7 +5,8 @@
 void scannow::scan(ScanCallback callback)
 {
 	lowlevel::QuarantineItem example;
-	//callback(example);
+	example.location = "example/location/test.exe";
+	callback(example);
 }
 
 void scannow::stopScan()

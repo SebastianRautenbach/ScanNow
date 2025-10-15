@@ -16,9 +16,17 @@ public:
 	inline auto Enqueue(F&& f, Args&&... args) -> std::future<decltype(f(args...))>
 	{
 		using return_type = decltype(f(args...));
-		auto task = std::make_shared<std::packaged_task<return_type()>>(std::bind(std::forward<F>(f),
+		std::shared_ptr<std::packaged_task<return_type()>> task = std::make_shared<std::packaged_task<return_type()>>(std::bind(std::forward<F>(f),
 			std::forward<Args>(args)...));
-		std::uni
+		
+		std::future<return_type> result = task->get_future();
+
+		std::unique_lock<std::mutex> lock(m_mutex);
+		m_tasks.emplace([task]()->void {(*task)()});
+		lock.unlock();
+		m_conVar.notify_one();
+		return result;
+
 	}
 
 private:	

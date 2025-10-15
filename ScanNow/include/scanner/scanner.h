@@ -3,11 +3,11 @@
 #include <string>
 
 
-//namespace lowlevel {
-//	class QuarantineItem {};
-//}
+namespace lowlevel {
+	class QuarantineItem;
+}
 
-using ScanCallback = std::function<void(const std::string& filePath)>;
+using ScanCallback = std::function<void(const lowlevel::QuarantineItem& filePath)>;
 
 
 namespace scannow {
