@@ -6,8 +6,8 @@ resources/full_sha256.txt
 # Build directories
 x64/
 obj/
-bin/
-
+ScanNow/bin/
+ScanNowDebug/bin/
 # Visual Studio
 .vs/
 
