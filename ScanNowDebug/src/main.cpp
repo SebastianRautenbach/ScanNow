@@ -18,7 +18,8 @@ void function_callback(const lowlevel::QuarantineItem& filePath) {
 
 
 int main() {
-	scannow::scan(function_callback);
-	scannow::stopScan();
+	scannow::ScanNow* scnner;
+	scnner = new scannow::ScanNow();
+	scnner->scan(function_callback);
 	return 0;
 }
