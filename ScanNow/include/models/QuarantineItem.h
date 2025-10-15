@@ -7,6 +7,7 @@ namespace lowlevel {
 	public:
 		std::string hash;
 		std::string location;
+		std::string reason;		
 	private:
 	};
 }

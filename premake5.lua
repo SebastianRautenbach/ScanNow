@@ -3,11 +3,11 @@ workspace "ScanNow"
 
     configurations
     {
-        "DebugLib", "ReleaseLib"
+        "Debug", "Release"
     }
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-
+crnt_proj = ""
 
 project "ScanNow"
     kind "StaticLib"
@@ -17,8 +17,8 @@ project "ScanNow"
 
     warnings "Extra"    
 
-targetdir ("ScanNowDebug/lib")
---    targetdir ("ScanNow/bin/" .. outputdir .. "/%{prj.name}")
+    crnt_proj = "/%{prj.name}"
+    targetdir ("ScanNow/bin/" .. outputdir .. "/%{prj.name}")
 
     files
     {
@@ -86,7 +86,8 @@ project "ScanNowDebug"
 
     libdirs 
     {
-        "ScanNowDebug/lib"
+        "ScanNowDebug/lib",
+        "ScanNow/bin/" .. outputdir .. "/ScanNow"
     }
 
     links 

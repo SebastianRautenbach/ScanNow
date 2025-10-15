@@ -3,6 +3,10 @@
 #include <string>
 
 
+//namespace lowlevel {
+//	class QuarantineItem {};
+//}
+
 using ScanCallback = std::function<void(const std::string& filePath)>;
 
 

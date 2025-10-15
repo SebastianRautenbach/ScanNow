@@ -1,9 +1,11 @@
 #include "scanner/scanner.h"
 #include <iostream>
+#include "models/QuarantineItem.h"
 
 void scannow::scan(ScanCallback callback)
 {
-	callback("examples admkasmdlas;md");
+	lowlevel::QuarantineItem example;
+	//callback(example);
 }
 
 void scannow::stopScan()
