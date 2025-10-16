@@ -23,8 +23,10 @@ void lowlevel::FileScanner::scan(const char* path)
 	
     if (m_signatureScanner->scan(original, m_fileHashMem)) {
         // bad file
+        std::cout << "This is a bad file\n";
     }
     else {
         // good file
+        std::cout << "This is a good file\n";
     }
 }
