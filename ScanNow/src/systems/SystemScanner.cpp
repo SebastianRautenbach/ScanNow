@@ -9,5 +9,5 @@ lowlevel::SystemScanner::SystemScanner()
 
 void lowlevel::SystemScanner::StartSystemScan()
 {
-	m_fileTraverser->scan("C:/Users/karat/Desktop/WIZMENGINES");
+	m_fileTraverser->scan("");
 }

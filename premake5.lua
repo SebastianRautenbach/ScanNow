@@ -7,7 +7,6 @@ workspace "ScanNow"
     }
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-crnt_proj = ""
 
 project "ScanNow"
     kind "StaticLib"
@@ -17,7 +16,6 @@ project "ScanNow"
 
     warnings "Extra"    
 
-    crnt_proj = "/%{prj.name}"
     targetdir ("ScanNow/bin/" .. outputdir .. "/%{prj.name}")
 
     files

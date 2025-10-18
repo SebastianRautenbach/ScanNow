@@ -4,7 +4,12 @@
 #include <memory>
 
 namespace lowlevel {
-	class QuarantineItem;
+	class QuarantineItem {
+	public:
+		std::string hash;
+		std::string location;
+		std::string reason;
+	};
 	class SystemScanner;
 }
 
@@ -17,6 +22,7 @@ namespace scannow {
 	{
 	public:
 		ScanNow();
+		~ScanNow();
 		void scan(ScanCallback callback);
 		void stopScan();
 		void addExclusionZone();

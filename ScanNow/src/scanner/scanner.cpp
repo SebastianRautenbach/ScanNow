@@ -1,11 +1,15 @@
+#include "..\..\include\scanner\scanner.h"
 #include "scanner/scanner.h"
 #include <iostream>
-#include "models/QuarantineItem.h"
 #include "systems/SystemScanner.h"
 
 scannow::ScanNow::ScanNow()
 {
 	m_Scanner = std::make_unique<lowlevel::SystemScanner>();
+}
+
+scannow::ScanNow::~ScanNow()
+{
 }
 
 void scannow::ScanNow::scan(ScanCallback callback)

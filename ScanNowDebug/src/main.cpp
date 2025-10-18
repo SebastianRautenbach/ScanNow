@@ -1,16 +1,6 @@
 #include <iostream>
 #include "scanner.h"
-
-namespace lowlevel
-{
-	class QuarantineItem {
-	public:
-		std::string hash;
-		std::string location;
-		std::string reason;
-	};
-}
-
+#include <iostream>
 
 void function_callback(const lowlevel::QuarantineItem& filePath) {
 	std::cout << filePath.location << "\n";
@@ -18,8 +8,13 @@ void function_callback(const lowlevel::QuarantineItem& filePath) {
 
 
 int main() {
-	scannow::ScanNow* scnner;
-	scnner = new scannow::ScanNow();
-	scnner->scan(function_callback);
+	scannow::ScanNow scnner;
+	scnner.scan(function_callback);
+	
+	
+	while (true) { // insure that the scanner does not get deleted!
+		std::cin.get();
+	}
+	
 	return 0;
 }
