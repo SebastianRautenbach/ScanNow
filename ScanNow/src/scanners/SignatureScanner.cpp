@@ -19,10 +19,10 @@ bool lowlevel::SignatureScanner::scan(const std::string& fileData, const std::sh
 
 inline std::string lowlevel::SignatureScanner::generateFileHash(const std::string& fileData, std::array<unsigned char, picosha2::k_digest_size>& hashBuffer)
 {    
-    picosha2::hash256(fileData.begin(), fileData.end(), hashBuffer.begin(), hashBuffer.end());
-    std::string result;
-    result.reserve(picosha2::k_digest_size * 2);
-    result = picosha2::bytes_to_hex_string(hashBuffer.begin(), hashBuffer.end());
+    //picosha2::hash256(fileData.begin(), fileData.end(), hashBuffer.begin(), hashBuffer.end());
+    std::string result = "";
+    //result.reserve(picosha2::k_digest_size * 2);
+    //result = picosha2::bytes_to_hex_string(hashBuffer.begin(), hashBuffer.end());
     return result;
 }
 

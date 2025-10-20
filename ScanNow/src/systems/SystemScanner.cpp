@@ -9,5 +9,5 @@ lowlevel::SystemScanner::SystemScanner()
 
 void lowlevel::SystemScanner::StartSystemScan()
 {
-	m_fileTraverser->scan("");
+	m_fileTraverser->scan("C:/Users/user-pc/Desktop/Pistol/");
 }
