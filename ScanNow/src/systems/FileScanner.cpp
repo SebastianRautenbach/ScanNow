@@ -13,18 +13,25 @@ lowlevel::FileScanner::FileScanner(std::shared_ptr<FileHashMem> _fileHashMem)
 void lowlevel::FileScanner::scan(const char* path)
 {
     std::ifstream file(path, std::ios_base::binary);
-    static std::string original;
+    std::string original;
+
+    
 
     if (file.is_open()) {
         std::stringstream buffer;
         buffer << file.rdbuf();
-        original = buffer.str();       
+
+        if (buffer) {            
+            original = buffer.str();   
+        }
     }
 	
-
+    
     if (original.empty() || file.bad())
         return;
-
+    
+    
+    
     if (m_signatureScanner->scan(original, m_fileHashMem)) {
         // bad file
         std::cout << "This is a bad file\n";
@@ -33,4 +40,5 @@ void lowlevel::FileScanner::scan(const char* path)
         // good file
         std::cout << "This is a good file\n";
     }
+
 }

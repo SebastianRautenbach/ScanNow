@@ -1,4 +1,12 @@
 #include "systems/SystemScanner.h"
+#include <windows.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <winioctl.h>
+#include <string.h>
+#include <crtdbg.h>
+#include <assert.h>
+#include <fltuser.h>
 
 lowlevel::SystemScanner::SystemScanner()
 {
@@ -9,5 +17,5 @@ lowlevel::SystemScanner::SystemScanner()
 
 void lowlevel::SystemScanner::StartSystemScan()
 {
-	m_fileTraverser->scan("C:/Users/user-pc/Desktop/Pistol/");
+	m_fileTraverser->scan("C:/Users/karat/Documents/glassfish7/");
 }

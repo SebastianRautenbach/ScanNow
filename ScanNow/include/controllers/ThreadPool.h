@@ -10,6 +10,7 @@ public:
 	explicit ThreadPool(uint32_t num_threads);
 	~ThreadPool();
 
+    void WaitAll();
 
     template <class F, class ... Args>
     auto enqueue(F&& f, Args&&... args)

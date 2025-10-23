@@ -47,3 +47,7 @@ ThreadPool::~ThreadPool()
         thread.join();
     }
 }
+
+void ThreadPool::WaitAll()
+{
+}

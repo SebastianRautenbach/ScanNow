@@ -1,20 +1,28 @@
-# Hashes and resources
 hashes.db
 resources/full.csv
 resources/full_sha256.txt
 
-# Build directories
+
 x64/
 obj/
 ScanNow/bin/
 ScanNowDebug/bin/
-# Visual Studio
+
 .vs/
 
-# Visual Studio generated files
 *.ipch
 *.VC.db
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
 *.sln
+
+
+ScanNow/
+ScanNowDebug/
+
+
+
+!SNKernelDriver/**
+
+SNKernelDriver/x64/

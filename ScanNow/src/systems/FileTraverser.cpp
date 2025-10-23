@@ -12,33 +12,38 @@ lowlevel::FileTraverser::FileTraverser(std::shared_ptr<FileHashMem> fileHashMem)
 
 
 void lowlevel::FileTraverser::scan(const char* path) {
-	//for (uint32_t i = 0; i < m_filesQueue.size(); i++) {
-	//	m_threadPool->enqueue(
-	//		[this]() {m_fileScanner->scan(m_filesQueue.front().c_str());  });
-	//}
+    m_scanDir = [&](const std::string& path) {
+        const std::filesystem::path startPath(path);
 
+        try {
+            for (auto const& dirEntry : std::filesystem::directory_iterator{ startPath }) {
 
-	std::function<void(const char*)> ScanDir = [&](const char* path) {
-		const std::filesystem::path  startPath(path);
-		for (auto const& dirEntry : std::filesystem::directory_iterator{ startPath }) {
-			if (dirEntry.is_directory()) {
-				m_fileThreadPool->enqueue([this, dirEntry, ScanDir]() {
-					ScanDir(dirEntry.path().string().c_str());
-					});
-			}
-			else if(dirEntry.exists() && dirEntry.is_regular_file()) {
-				m_scanThreadPool->enqueue([this, dirEntry]() {
-					
-					m_fileScanner->scan(dirEntry.path().string().c_str());
+                if (!dirEntry.exists()) continue;
 
-					});
-			}
-		}
-		std::cout << m_filesQueue.size() << "\n";
-	};
+                if (dirEntry.is_directory()) {
+                    auto subPath = dirEntry.path().string();
+                    m_fileThreadPool->enqueue([this, subPath]() {
+                        m_scanDir(subPath);
+                        });
+                    //m_scanDir(subPath);
+                }
+                else if (dirEntry.is_regular_file()) {
+                    auto filePath = dirEntry.path().string();
+                    m_scanThreadPool->enqueue([this, filePath]() {
+                    
+                        if (m_fileScanner) {
+                            m_fileScanner->scan(filePath.c_str());
+                        }
+                    
+                        });
+                    
+                }
+            }
+        }
+        catch (const std::filesystem::filesystem_error& e) {
+            std::cerr << "File Traverser error: " << e.what() << " (" << path << ")\n";
+        }
+        };
 
-	ScanDir(path);
-	
-
-
+    m_scanDir(path);
 }

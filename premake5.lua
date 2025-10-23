@@ -106,5 +106,3 @@ project "ScanNowDebug"
         runtime "Release"
         staticruntime "On"
         optimize "On"
-
-

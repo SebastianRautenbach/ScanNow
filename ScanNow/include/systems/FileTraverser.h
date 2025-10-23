@@ -16,12 +16,12 @@ namespace lowlevel {
 		// worker threads
 
 		std::shared_ptr<ThreadPool> m_scanThreadPool, m_fileThreadPool;
+
+
+
 		std::shared_ptr<FileScanner> m_fileScanner;
 		unsigned int m_numThread = std::thread::hardware_concurrency(); 
-		
-		// for now
-		std::queue<std::string> m_filesQueue;
-
+		std::function<void(const std::string&)> m_scanDir;
 
 	};
 }
