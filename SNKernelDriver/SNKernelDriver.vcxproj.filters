@@ -30,7 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SNKernelDefinitions.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
