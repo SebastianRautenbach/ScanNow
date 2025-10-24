@@ -4,65 +4,80 @@
 
 [Version]
 Signature   = "$WINDOWS NT$"
-Class       = System ; TODO: specify appropriate Class
-ClassGuid   = {4d36e97d-e325-11ce-bfc1-08002be10318} ; TODO: specify appropriate ClassGuid
+Class       = System
+ClassGuid   = {4d36e97d-e325-11ce-bfc1-08002be10318}
 Provider    = %ManufacturerName%
 CatalogFile = SNKernelDriver.cat
-DriverVer   = ; TODO: set DriverVer in stampinf property pages
+DriverVer   = 10/24/2025,1.0.0.0
 PnpLockdown = 1
 
 [DestinationDirs]
-DefaultDestDir = 13
+DefaultDestDir = 12  ; Drivers directory (%SystemRoot%\System32\Drivers)
 
 [SourceDisksNames]
-1 = %DiskName%,,,""
+1 = %DiskName%,,, 
 
 [SourceDisksFiles]
-SNKernelDriver.sys = 1,,
+SNKernelDriver.sys = 1,, 
 
 ;*****************************************
-; Install Section
+; Manufacturer Section
 ;*****************************************
 
 [Manufacturer]
-%ManufacturerName% = Standard,NT$ARCH$.10.0...16299 ; %13% support introduced in build 16299
+%ManufacturerName% = Standard,NT$ARCH$
 
-[Standard.NT$ARCH$.10.0...16299]
-%SNKernelDriver.DeviceDesc% = SNKernelDriver_Device, Root\SNKernelDriver ; TODO: edit hw-id
+[Standard.NT$ARCH$]
+%SNKernelDriver.DeviceDesc% = SNKernelDriver_Device, Root\SNKernelDriver
+
+;*****************************************
+; Installation Section
+;*****************************************
 
 [SNKernelDriver_Device.NT]
-CopyFiles = File_Copy
+CopyFiles = SNKernelDriver_CopyFiles
+AddReg    = SNKernelDriver_AddReg
 
-[File_Copy]
+[SNKernelDriver_CopyFiles]
 SNKernelDriver.sys
 
-;-------------- Service installation
+[SNKernelDriver_AddReg]
+; Example for adding custom parameters
+; HKR, "Parameters", "SampleValue", 0x00010001, 1
+
+;*****************************************
+; Service Installation
+;*****************************************
+
 [SNKernelDriver_Device.NT.Services]
-AddService = SNKernelDriver,%SPSVCINST_ASSOCSERVICE%, SNKernelDriver_Service_Inst
+AddService = SNKernelDriver, %SPSVCINST_ASSOCSERVICE%, SNKernelDriver_Service_Inst
 
-
-;-------------- Registry values
-[Common.AddRegistry]
-HKR,"Parameters","Extensions",0x00010000,"exe","doc","txt","bat","cmd","inf"
-
-
-; -------------- SNKernelDriver driver install sections
 [SNKernelDriver_Service_Inst]
 DisplayName    = %SNKernelDriver.SVCDESC%
 ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
 StartType      = 3               ; SERVICE_DEMAND_START
 ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
-ServiceBinary  = %13%\SNKernelDriver.sys
+ServiceBinary  = %12%\SNKernelDriver.sys
+LoadOrderGroup = "FSFilter Content Screener"
+Dependencies   = "FltMgr"
+
+;*****************************************
+; WDF Section (for KMDF drivers)
+;*****************************************
 
 [SNKernelDriver_Device.NT.Wdf]
 KmdfService = SNKernelDriver, SNKernelDriver_wdfsect
 
 [SNKernelDriver_wdfsect]
-KmdfLibraryVersion = $KMDFVERSION$
+KmdfLibraryVersion = 1.33
+
+;*****************************************
+; String Definitions
+;*****************************************
 
 [Strings]
-SPSVCINST_ASSOCSERVICE = 0x00000002
-ManufacturerName = "<Your manufacturer name>" ;TODO: Replace with your manufacturer name
-DiskName = "SNKernelDriver Installation Disk"
+SPSVCINST_ASSOCSERVICE   = 0x00000002
+ManufacturerName         = "Your Company Name"
+DiskName                 = "SNKernelDriver Installation Disk"
 SNKernelDriver.DeviceDesc = "SNKernelDriver Device"
-SNKernelDriver.SVCDESC = "SNKernelDriver Service"
+SNKernelDriver.SVCDESC    = "SNKernelDriver Service"

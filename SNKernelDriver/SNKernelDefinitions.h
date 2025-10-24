@@ -5,7 +5,19 @@
 #define __SNKERNELDEF_H__
 
 
+#define SNK_MAX_PATH_CHARS 512 
 
+
+#define SNK_POOL_TAG_DEF 'aKNS'
+#define SNK_STRING_TAG_DEF 'sKNS'
+
+
+typedef struct _SN_NOTIFICATION {
+    ULONG Length;
+    ULONG TotalLength;
+    WCHAR FilePath[SNK_MAX_PATH_CHARS];
+
+} SN_NOTIFICATION, * PSN_NOTIFICATION;
 
 typedef struct _SNKERNEL_DATA {
 
