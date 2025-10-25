@@ -8,8 +8,9 @@
 #define SNK_MAX_PATH_CHARS 512 
 
 
-#define SNK_POOL_TAG_DEF 'aKNS'
+#define SNK_POOL_TAG_DEF   'aKNS'
 #define SNK_STRING_TAG_DEF 'sKNS'
+#define SNK_REG_TAG_DEF    'rKNS'
 
 
 typedef struct _SN_NOTIFICATION {
