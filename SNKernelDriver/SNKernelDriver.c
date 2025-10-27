@@ -154,7 +154,7 @@ const FLT_OPERATION_REGISTRATION Callbacks[] = {
 
 #endif
 
-    { IRP_MJ_OPERATION_END}
+    { IRP_MJ_OPERATION_END}   
 };
 
 
@@ -164,7 +164,7 @@ const FLT_CONTEXT_REGISTRATION ContextRegistration[] = {
       0,
       NULL,
       sizeof(BOOLEAN),
-      'chBS' },
+      SNK_POOL_TAG_DEF },
 
     { FLT_CONTEXT_END }
 };
@@ -188,7 +188,6 @@ const FLT_REGISTRATION FilterRegistration = {
 };
 
 
-
 //////////////////////////////////////////////////////////////////////////////
 //
 //      DRIVER ENTRY POINT
@@ -202,8 +201,6 @@ DriverEntry(
     _In_ PUNICODE_STRING    RegistryPath
 )
 {    
-    UNREFERENCED_PARAMETER(RegistryPath);
-
     UNICODE_STRING uniString;
     NTSTATUS status;
     PSECURITY_DESCRIPTOR sd;
@@ -212,9 +209,10 @@ DriverEntry(
 
     ExInitializeDriverRuntime(DrvRtPoolNxOptIn);
 
+    
+    KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> DriverEntry FLT_REGISTRATION_VERSION = %u\n", FLT_REGISTRATION_VERSION));
 
-    KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> DriverEntry\n"));
-
+    
     // this is where the attachments happen
     status = FltRegisterFilter(
         DriverObject,
@@ -223,6 +221,7 @@ DriverEntry(
 
     
     if (!NT_SUCCESS(status)) {
+        KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> DriverEntry -> FltRegisterFilter error status=%u", status));
         return status;
     }
 
@@ -242,6 +241,9 @@ DriverEntry(
 
     if (NT_SUCCESS(status)) {
 
+        RtlInitUnicodeString(&uniString, SNKernelPortName);
+        
+        
         InitializeObjectAttributes(
             &ObjectAttributes,
             &uniString,
@@ -250,7 +252,6 @@ DriverEntry(
             sd);
 
 
-        RtlInitUnicodeString(&uniString, SNKernelPortName);
         
         
         //
@@ -302,6 +303,10 @@ DriverEntry(
 
 
 
+/*
+*       This function is called when a file is in the initial process of creation
+*/
+
 FLT_PREOP_CALLBACK_STATUS SNKernelPreCreate(
     _Inout_ PFLT_CALLBACK_DATA Data,
     _In_ PCFLT_RELATED_OBJECTS FltObjects,
@@ -324,6 +329,12 @@ FLT_PREOP_CALLBACK_STATUS SNKernelPreCreate(
 
     return FLT_PREOP_SUCCESS_WITH_CALLBACK;
 }
+
+
+/*
+*       This function is called when a file is created.
+*       We can use this callback to do a user-mode scan from our antivirus
+*/
 
 FLT_POSTOP_CALLBACK_STATUS SNKernelPostCreate(
     _Inout_ PFLT_CALLBACK_DATA Data,
@@ -371,18 +382,12 @@ FLT_POSTOP_CALLBACK_STATUS SNKernelPostCreate(
     }
 
     
-    SNKernelAntivirusScanUM(nameInfo->Name);
+    (VOID) SNKernelAntivirusScanUM(nameInfo->Name);
 
 
     FltReleaseFileNameInformation(nameInfo);
     
-    
-
-
-
-    // This calls the function to scan in the user mode antivirus
-
-    // (VOID) 
+   
 
     return FLT_POSTOP_FINISHED_PROCESSING;
 }
@@ -442,8 +447,7 @@ NTSTATUS SNKernelInstanceSetup(
     _In_ DEVICE_TYPE VolumeDeviceType,
     _In_ FLT_FILESYSTEM_TYPE VolumeFilesystemType
 )
-{    
-    UNREFERENCED_PARAMETER(FltObjects);
+{        
     UNREFERENCED_PARAMETER(Flags);
     UNREFERENCED_PARAMETER(VolumeFilesystemType);
 

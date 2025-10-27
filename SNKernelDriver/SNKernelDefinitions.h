@@ -36,7 +36,7 @@ typedef struct _SNKERNEL_DATA {
 
 extern SNKERNEL_DATA SNKernelData;
 
-PCWSTR SNKernelPortName = L"SNKernelPort";
+PCWSTR SNKernelPortName = L"\\SNKernelPort";
 
 
 DRIVER_INITIALIZE DriverEntry;

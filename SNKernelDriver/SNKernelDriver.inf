@@ -42,8 +42,7 @@ AddReg    = SNKernelDriver_AddReg
 SNKernelDriver.sys
 
 [SNKernelDriver_AddReg]
-; Example for adding custom parameters
-; HKR, "Parameters", "SampleValue", 0x00010001, 1
+HKR,"Parameters","Extensions",0x00010000,"exe","doc","txt","bat","cmd","inf"
 
 ;*****************************************
 ; Service Installation
@@ -60,6 +59,8 @@ ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
 ServiceBinary  = %12%\SNKernelDriver.sys
 LoadOrderGroup = "FSFilter Content Screener"
 Dependencies   = "FltMgr"
+
+
 
 ;*****************************************
 ; WDF Section (for KMDF drivers)
