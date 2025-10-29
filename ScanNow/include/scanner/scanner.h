@@ -1,34 +1,27 @@
 #pragma once
-#include <functional>
-#include <string>
-#include <memory>
 
 namespace lowlevel {
-	class QuarantineItem {
-	public:
-		std::string hash;
-		std::string location;
-		std::string reason;
-	};
-	class SystemScanner;
+        struct QuarantineItem {
+            const char* hash;
+            const char* location;
+            const char* reason;
+        };
 }
-
-using ScanCallback = std::function<void(const lowlevel::QuarantineItem& filePath)>;
-
+using ScanCallback = void(*)(const lowlevel::QuarantineItem&);
 
 namespace scannow {
-	
-	class ScanNow
-	{
-	public:
-		ScanNow();
-		~ScanNow();
-		void scan(ScanCallback callback);
-		void stopScan();
-		void addExclusionZone();
+    class ScanNow {
+    public:
+        ScanNow();
+        ~ScanNow();
+        bool Initialize();
+        void scan(ScanCallback callback);
 
-	private:
-		std::unique_ptr<lowlevel::SystemScanner> m_Scanner;	
-	};
-	
+        ScanNow(const ScanNow&) = delete;
+        ScanNow& operator=(const ScanNow&) = delete;
+
+    private:
+        struct Impl;
+        struct Impl* impl;
+    };
 }

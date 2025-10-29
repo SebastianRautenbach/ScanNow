@@ -70,6 +70,15 @@ project "ScanNowDebug"
 
      files
     {        
+        "ScanNowDebug/include/dependencies/glad.c",
+        "ScanNowDebug/include/dependencies/imgui/backends/imgui_impl_glfw.cpp",
+        "ScanNowDebug/include/dependencies/imgui/backends/imgui_impl_opengl3.cpp",
+        "ScanNowDebug/include/dependencies/imgui/imgui.cpp",
+        "ScanNowDebug/include/dependencies/imgui/imgui_demo.cpp",
+        "ScanNowDebug/include/dependencies/imgui/imgui_draw.cpp",
+        "ScanNowDebug/include/dependencies/imgui/imgui_tables.cpp",
+        "ScanNowDebug/include/dependencies/imgui/imgui_widgets.cpp",                        
+        "ScanNowDebug/include/dependencies/tinyfiledialogs.c",
         "ScanNowDebug/src/**.cpp",
         "ScanNowDebug/src/**.c",
         "ScanNowDebug/include/**.h",
@@ -79,7 +88,10 @@ project "ScanNowDebug"
     includedirs
     {
         "ScanNowDebug/include",
-        "ScanNow/include/scanner"     
+        "ScanNowDebug/include/dependencies",
+        "ScanNowDebug/include/dependencies/imgui",
+        "ScanNow/include/scanner"
+           
     }
 
     libdirs 
@@ -90,7 +102,9 @@ project "ScanNowDebug"
 
     links 
     {
-        "ScanNow.lib"
+        "ScanNow",
+        "glfw3dll",
+        "opengl32",
     }
 
     filter "system.windows"

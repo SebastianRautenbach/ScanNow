@@ -37,7 +37,7 @@ void lowlevel::FileScanner::scan(const char* path)
     }
     else {
         // good file
-        std::cout << "This is a good file\n";
+        std::cout << path << "\n";
     }
 
 }

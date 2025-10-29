@@ -10,8 +10,9 @@
 PUNICODE_STRING ScannedExtensions;
 ULONG ScannedExtentionsCount;
 
+
 // this is incase no extension is loaded from the registry
-UNICODE_STRING ScannedExtensionDefault = RTL_CONSTANT_STRING(L"exe");
+UNICODE_STRING ScannedExtensionDefault = RTL_CONSTANT_STRING(L"txt");
 
 
 
@@ -55,7 +56,7 @@ SNKernelCheckExtension(
 
 NTSTATUS
 SNKernelAntivirusScanUM(
-    _In_ UNICODE_STRING FileInfo
+    _In_ PUNICODE_STRING FileInfo
 );
 
 NTSTATUS
@@ -123,7 +124,6 @@ SNKernelAllocateUnicodeString(
 #pragma alloc_text(PAGE, SNKernelFreeExtensions)
 #pragma alloc_text(PAGE, SNKernelPreCreate)
 #pragma alloc_text(PAGE, SNKernelPostCreate)
-#pragma alloc_text(PAGE, SNKernelPreCleanup)
 #pragma alloc_text(PAGE, SNKernelPreFileSystemControl)
 #pragma alloc_text(PAGE, SNKernelPortDisconnect)
 #pragma alloc_text(PAGE, SNKernelCheckExtension)
@@ -138,11 +138,6 @@ const FLT_OPERATION_REGISTRATION Callbacks[] = {
       0,
       SNKernelPreCreate,
       SNKernelPostCreate},
-
-    { IRP_MJ_CLEANUP,
-      0,
-      SNKernelPreCleanup,
-      NULL},
 
 #if (WINVER>=0x0602)
 
@@ -318,9 +313,8 @@ FLT_PREOP_CALLBACK_STATUS SNKernelPreCreate(
 
     PAGED_CODE();
 
-    KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelPreCreate\n"));
-
-    // Is this connection done by our Antivirus
+    //KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelPreCreate\n"));
+    
 
     if (IoThreadToProcess(Data->Thread) == SNKernelData.UserProcess) {
         KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelPreCreate -> Allowing for trusted process\n"));
@@ -363,7 +357,7 @@ FLT_POSTOP_CALLBACK_STATUS SNKernelPostCreate(
     }
 
     status = FltGetFileNameInformation(Data,
-        FLT_FILE_NAME_NORMALIZED | FLT_FILE_NAME_QUERY_DEFAULT,
+        FLT_FILE_NAME_NORMALIZED | FLT_FILE_NAME_QUERY_ALWAYS_ALLOW_CACHE_LOOKUP,
         &nameInfo
     );
 
@@ -381,8 +375,22 @@ FLT_POSTOP_CALLBACK_STATUS SNKernelPostCreate(
         return FLT_POSTOP_FINISHED_PROCESSING;
     }
 
+    KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL,
+        "Extension: %wZ\n", nameInfo->Extension));
+    KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL,
+        "FinalComponent: %wZ\n", nameInfo->FinalComponent));
+    KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL,
+        "Name: %wZ\n", nameInfo->Name));
+    KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL,
+        "ParentDir: %wZ\n", nameInfo->ParentDir));
+    KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL,
+        "Share: %wZ\n", nameInfo->Share));
+    KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL,
+        "Stream: %wZ\n", nameInfo->Stream));
+    KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL,
+        "Volume: %wZ\n", nameInfo->Volume));
     
-    (VOID) SNKernelAntivirusScanUM(nameInfo->Name);
+    (VOID) SNKernelAntivirusScanUM(&nameInfo->ParentDir);
 
 
     FltReleaseFileNameInformation(nameInfo);
@@ -392,21 +400,6 @@ FLT_POSTOP_CALLBACK_STATUS SNKernelPostCreate(
     return FLT_POSTOP_FINISHED_PROCESSING;
 }
 
-FLT_PREOP_CALLBACK_STATUS SNKernelPreCleanup(
-    _Inout_ PFLT_CALLBACK_DATA Data,
-    _In_ PCFLT_RELATED_OBJECTS FltObjects,
-    _Flt_CompletionContext_Outptr_ PVOID* CompletionContext
-)
-{
-    UNREFERENCED_PARAMETER(Data);    
-    UNREFERENCED_PARAMETER(CompletionContext = NULL);
-
-    KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelPreCleanup\n"));
-
-    (VOID) SNKernelAntivirusScanUM(FltObjects->FileObject->FileName);
-
-    return FLT_PREOP_SUCCESS_NO_CALLBACK;
-}
 
 FLT_PREOP_CALLBACK_STATUS SNKernelPreFileSystemControl(
     _Inout_ PFLT_CALLBACK_DATA Data,
@@ -417,6 +410,12 @@ FLT_PREOP_CALLBACK_STATUS SNKernelPreFileSystemControl(
     UNREFERENCED_PARAMETER(Data);
     UNREFERENCED_PARAMETER(FltObjects);
     UNREFERENCED_PARAMETER(CompletionContext = NULL);
+
+    if (SNKernelData.ClientPort == NULL) {
+
+        return FLT_PREOP_SUCCESS_NO_CALLBACK;
+    }
+
 
 
     KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelPreFileSystemControl\n"));
@@ -575,16 +574,19 @@ SNKernelCheckExtension(
 
 NTSTATUS
 SNKernelAntivirusScanUM(    
-    _In_ UNICODE_STRING FileInfo
+    _In_ PUNICODE_STRING FileInfo
 ) {
     
     NTSTATUS status;
     PSN_NOTIFICATION notification = NULL;    
 
-
     KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelAntivirusScanUM\n"));
 
+    KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL,
+        "FileInfo: %S\n", FileInfo->Buffer));
+
     if (SNKernelData.ClientPort == NULL) {
+        KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelAntivirusScanUM -> ClientPort == NULL\n"));
         return STATUS_SUCCESS;
     }
 
@@ -596,6 +598,8 @@ SNKernelAntivirusScanUM(
         
         if (notification == NULL) {
             status = STATUS_INSUFFICIENT_RESOURCES;
+            KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelAntivirusScanUM -> notification == NULL\n"));
+
             leave;
         }
 
@@ -603,15 +607,17 @@ SNKernelAntivirusScanUM(
         RtlStringCchCopyNW(
             notification->FilePath,
             SNK_MAX_PATH_CHARS,
-            FileInfo.Buffer,
-            FileInfo.Length / sizeof(WCHAR)
+            FileInfo->Buffer,
+            FileInfo->Length / sizeof(WCHAR)
         );
 
-        notification->Length = FileInfo.Length;
+        notification->Length = FileInfo->Length;
         notification->TotalLength = sizeof(SN_NOTIFICATION);
 
-
-
+        KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL,
+            "FileInfo: %S\n", FileInfo->Buffer));
+        
+        
         status = FltSendMessage(
             SNKernelData.Filter,
             &SNKernelData.ClientPort,
@@ -624,6 +630,7 @@ SNKernelAntivirusScanUM(
     } finally {
 
         if (notification != NULL) {
+            KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelAntivirusScanUM -> notification2 == NULL\n"));
             ExFreePoolWithTag(notification, SNK_POOL_TAG_DEF);
         }
 
@@ -664,7 +671,7 @@ SNKernelInitScannedExtentions(
         &driverRegKey);
 
     if (!NT_SUCCESS(status)) {
-
+        KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelInitScannedExtentions -> SNKernelOpenServiceParametersKey FAILED\n"));
         driverRegKey = NULL;
         goto ScannerInitializeScannedExtensionsCleanup;
     }
@@ -683,6 +690,7 @@ SNKernelInitScannedExtentions(
         &valueLength);
 
     if (status != STATUS_BUFFER_TOO_SMALL && status != STATUS_BUFFER_OVERFLOW) {
+        KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelInitScannedExtentions -> STATUS_INVALID_PARAMETER\n"));
 
         status = STATUS_INVALID_PARAMETER;
         goto ScannerInitializeScannedExtensionsCleanup;
@@ -697,6 +705,7 @@ SNKernelInitScannedExtentions(
         SNK_REG_TAG_DEF);
 
     if (valueBuffer == NULL) {
+        KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelInitScannedExtentions -> ExAllocatePoolZero failed\n"));
 
         status = STATUS_INSUFFICIENT_RESOURCES;
         goto ScannerInitializeScannedExtensionsCleanup;
@@ -710,6 +719,7 @@ SNKernelInitScannedExtentions(
         &valueLength);
 
     if (!NT_SUCCESS(status)) {
+        KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelInitScannedExtentions -> ZwQueryValueKey valueBuffer failed\n"));
 
         goto ScannerInitializeScannedExtensionsCleanup;
     }
@@ -813,27 +823,45 @@ SNKernelOpenServiceParametersKey(
     //  open the key if possible
     //
 
-    pIoOpenDriverRegistryKey = SNKernelGetIoOpenDriverRegistryKey();
+    //pIoOpenDriverRegistryKey = SNKernelGetIoOpenDriverRegistryKey();  
+    pIoOpenDriverRegistryKey = NULL;
 
     if (pIoOpenDriverRegistryKey != NULL) {
 
         //
         //  Open the parameters key using the API
         //
-
-        status = pIoOpenDriverRegistryKey(DriverObject,
+   
+        status = pIoOpenDriverRegistryKey(
+            DriverObject,
             DriverRegKeyParameters,
             KEY_READ,
             0,
             &ParametersKey);
 
+        //IoOpenDriverRegistryKey();
+
+
+
         if (!NT_SUCCESS(status)) {
+            KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelOpenServiceParametersKey -> pIoOpenDriverRegistryKey -> DriverRegKeyParameters fail\n"));
+            KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelOpenServiceParametersKey -> pIoOpenDriverRegistryKey -> status=%u\n", status));
+            KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "DriverRegKeyParameters = %u\n", DriverRegKeyParameters));
+            KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "DriverObject = %p, DriverExtension = %p\n", DriverObject, DriverObject->DriverExtension));
+
+            RTL_OSVERSIONINFOW ver = { 0 };
+            ver.dwOSVersionInfoSize = sizeof(ver);
+            RtlGetVersion(&ver);
+            KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "Windows version: %u.%u build %u\n", ver.dwMajorVersion, ver.dwMinorVersion, ver.dwBuildNumber));
+
+
 
             goto SNKernelOpenServiceParametersKeyCleanup;
         }
 
     }
     else {
+        KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelOpenServiceParametersKey -> pIoOpenDriverRegistryKey NULL\n"));
 
         //
         //  Open specified service root key
@@ -850,6 +878,7 @@ SNKernelOpenServiceParametersKey(
             &Attributes);
 
         if (!NT_SUCCESS(status)) {
+            KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelOpenServiceParametersKey -> ZwOpenKey failed\n"));
 
             goto SNKernelOpenServiceParametersKeyCleanup;
         }
@@ -871,6 +900,7 @@ SNKernelOpenServiceParametersKey(
             &Attributes);
 
         if (!NT_SUCCESS(status)) {
+            KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "(*) SNKernelDriver -> SNKernelOpenServiceParametersKey -> ZwOpenKey2 failed\n"));
 
             goto SNKernelOpenServiceParametersKeyCleanup;
         }

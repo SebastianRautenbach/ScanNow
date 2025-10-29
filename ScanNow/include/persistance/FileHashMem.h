@@ -2,9 +2,12 @@
 #include <unordered_map>
 #include <string>
 #include <memory>
-#include "controllers/DatabaseClient.h"
+
 
 namespace lowlevel {
+
+	class DatabaseClient;
+
 	class FileHashMem {
 	public:
 

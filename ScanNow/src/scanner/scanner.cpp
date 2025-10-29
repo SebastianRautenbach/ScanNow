@@ -1,31 +1,38 @@
-#include "..\..\include\scanner\scanner.h"
 #include "scanner/scanner.h"
-#include <iostream>
+#include <memory>
+#include <string>
+#include <windows.h>
 #include "systems/SystemScanner.h"
 
-scannow::ScanNow::ScanNow()
-{
-	m_Scanner = std::make_unique<lowlevel::SystemScanner>();
+
+
+struct scannow::ScanNow::Impl {
+    std::shared_ptr<lowlevel::SystemScanner> scanner;
+};
+
+
+scannow::ScanNow::ScanNow() : impl(nullptr) {}
+scannow::ScanNow::~ScanNow() { delete impl; }
+
+bool scannow::ScanNow::Initialize() {    
+    if (impl) return true;
+    try {
+        impl = new Impl();
+        impl->scanner = std::make_shared<lowlevel::SystemScanner>();
+        return true;
+    }
+    catch (...) {
+        return false;
+    }    
+    return true;
 }
 
-scannow::ScanNow::~ScanNow()
-{
+void scannow::ScanNow::scan(ScanCallback callback) {
+    if (!impl) return;
+    lowlevel::QuarantineItem item;
+    item.location = "example/location/test.exe";
+    impl->scanner->StartSystemScan();
+    callback(item);
 }
 
-void scannow::ScanNow::scan(ScanCallback callback)
-{
-	m_Scanner->StartSystemScan();
-	lowlevel::QuarantineItem example;
-	example.location = "example/location/test.exe";
-	callback(example);
-}
 
-void scannow::ScanNow::stopScan()
-{
-	std::cout << "stop scan\n";
-}
-
-void scannow::ScanNow::addExclusionZone()
-{
-	std::cout << "Add exclusion zone\n";
-}

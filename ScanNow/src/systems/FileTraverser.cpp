@@ -25,7 +25,6 @@ void lowlevel::FileTraverser::scan(const char* path) {
                     m_fileThreadPool->enqueue([this, subPath]() {
                         m_scanDir(subPath);
                         });
-                    //m_scanDir(subPath);
                 }
                 else if (dirEntry.is_regular_file()) {
                     auto filePath = dirEntry.path().string();

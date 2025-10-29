@@ -4,13 +4,16 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "thirdparty/sqlite3.h"
+#include <string>
 
-DatabaseClient::DatabaseClient()
+
+lowlevel::DatabaseClient::DatabaseClient()
 {
 	createDBFromCSV("resources/full.csv");
 }
 
-int DatabaseClient::createDBFromCSV(const char* csv_path)
+int lowlevel::DatabaseClient::createDBFromCSV(const char* csv_path)
 {
     if (openDB(m_dbName) == 0) return 1; 
 
@@ -103,7 +106,7 @@ int DatabaseClient::createDBFromCSV(const char* csv_path)
     return 0;
 }
 
-int DatabaseClient::openDB(const char* m_dbName)
+int lowlevel::DatabaseClient::openDB(const char* m_dbName)
 {
     if (sqlite3_open(m_dbName, &m_db) != SQLITE_OK) {
         std::cerr << "Failed to open database: " << sqlite3_errmsg(m_db) << std::endl;

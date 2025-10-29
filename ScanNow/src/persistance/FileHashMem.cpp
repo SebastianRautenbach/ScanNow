@@ -1,5 +1,6 @@
 #include "persistance/FileHashMem.h"
-
+#include "controllers/DatabaseClient.h"
+#include "thirdparty/sqlite3.h"
 
 lowlevel::FileHashMem::FileHashMem(std::shared_ptr<DatabaseClient> db)
     :dbClient(db)

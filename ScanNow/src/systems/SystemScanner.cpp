@@ -7,12 +7,17 @@
 #include <crtdbg.h>
 #include <assert.h>
 #include <fltuser.h>
+#include "systems/FileTraverser.h"
+#include "controllers/DatabaseClient.h"
+
+
 
 lowlevel::SystemScanner::SystemScanner()
 {
 	m_dbClient = std::make_shared<DatabaseClient>();
-	m_fileHashMem = std::make_shared<FileHashMem>(m_dbClient);
-	m_fileTraverser = std::make_unique<FileTraverser>(m_fileHashMem);
+	m_fileHashMem = std::make_shared <FileHashMem>(m_dbClient);
+	m_fileTraverser = std::make_shared < FileTraverser>(m_fileHashMem);
+	
 }
 
 void lowlevel::SystemScanner::StartSystemScan()
